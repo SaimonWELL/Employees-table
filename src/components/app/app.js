@@ -14,7 +14,7 @@ class App extends Component{
         super(props);
         this.state={
              data : [
-                {name:'John C.', salary:800 ,increase:true,rise:false,id:1},
+                {name:'John C.', salary:800 ,increase:true,rise:true,id:1},
                 {name:'Alex M.', salary:3000,increase:false,rise:false,id:2},
                 {name:'Carl W.', salary:5000,increase:false,rise:false,id:3}
             ]
@@ -39,9 +39,10 @@ class App extends Component{
         }
 
         const newItem = {
-            name:name,
-            salary:salary,
+            name,
+            salary,
             increase:false,
+            rise:false,
             id:generateUniqueId(this.state.data)
         }
 
@@ -54,7 +55,15 @@ class App extends Component{
     }
 
     onToggleIncrease = (id) =>{
-        console.log(`increase this ${id}`)
+
+        this.setState(({data})=>({
+            data: data.map(item=>{
+                if(item.id === id){
+                    return {... item, increase: !item.increase}
+                }
+                return item;
+            })
+        }))
     }
 
     onToggleRise = (id)=>{
