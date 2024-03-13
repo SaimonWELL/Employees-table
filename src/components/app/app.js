@@ -14,9 +14,9 @@ class App extends Component{
         super(props);
         this.state={
              data : [
-                {name:'John C.', salary:800 ,increase:true,id:1},
-                {name:'Alex M.', salary:3000,increase:false,id:2},
-                {name:'Carl W.', salary:5000,increase:false,id:3}
+                {name:'John C.', salary:800 ,increase:true,rise:false,id:1},
+                {name:'Alex M.', salary:3000,increase:false,rise:false,id:2},
+                {name:'Carl W.', salary:5000,increase:false,rise:false,id:3}
             ]
         }
     }
@@ -38,12 +38,27 @@ class App extends Component{
             return id
         }
 
+        const newItem = {
+            name:name,
+            salary:salary,
+            increase:false,
+            id:generateUniqueId(this.state.data)
+        }
+
         this.setState(({data})=>{
             return {
-                data:[...data,{name:name,salary:salary,id:generateUniqueId(data)}]
+                data:[...data,newItem]
             }
         })
 
+    }
+
+    onToggleIncrease = (id) =>{
+        console.log(`increase this ${id}`)
+    }
+
+    onToggleRise = (id)=>{
+       console.log(`Rise this ${id}`)
     }
 
     render() {
@@ -58,6 +73,8 @@ class App extends Component{
 
                 <EmployeesList
                     onDelete={this.deleteItem}
+                    onToggleIncrease ={this.onToggleIncrease}
+                    onToggleRise ={this.onToggleRise}
                     data ={this.state.data} />
                 <EmployeesAddForm onAdd={this.addItem} />
             </div>
