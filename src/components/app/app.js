@@ -71,9 +71,11 @@ class App extends Component{
     }
 
     render() {
+
+        const {data} = this.state
         return(
             <div className='app'>
-                <AppInfo/>
+                <AppInfo numEmployees={data.length} theyGetBonus={data.filter(item=>item.increase===true).length}/>
 
                 <div className="search-panel">
                     <SearchPanel/>
