@@ -23,12 +23,27 @@ class App extends Component{
 
     deleteItem = (id) =>{
         this.setState(({data})=>{
-
             return{
                 data: data.filter(item => item.id !== id)
             }
 
         })
+    }
+    addItem = (name,salary)=>{
+        function generateUniqueId(data) {
+            let id = Math.random().toString(36).substr(2, 9);
+            while (data.find(item=>item.id===id)){
+                id=Math.random().toString(36).substr(2, 9);
+            }
+            return id
+        }
+
+        this.setState(({data})=>{
+            return {
+                data:[...data,{name:name,salary:salary,id:generateUniqueId(data)}]
+            }
+        })
+
     }
 
     render() {
@@ -44,7 +59,7 @@ class App extends Component{
                 <EmployeesList
                     onDelete={this.deleteItem}
                     data ={this.state.data} />
-                <EmployeesAddForm/>
+                <EmployeesAddForm onAdd={this.addItem} />
             </div>
         )
     }
