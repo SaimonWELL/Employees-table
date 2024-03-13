@@ -1,3 +1,5 @@
+import {Component} from "react";
+
 import AppInfo from "../app-info/app-info";
 import SearchPanel from "../search-panel/search-panel";
 import AppFilter from "../app-fillter/app-filter";
@@ -6,27 +8,46 @@ import EmployeesAddForm from "../employees-add-form/employees-add-form";
 
 import './app.css';
 
-function App(){
+class App extends Component{
 
-    const data = [
-        {name:'John C.', salary:800 ,increase:true,id:1},
-        {name:'Alex M.', salary:3000,increase:false,id:2},
-        {name:'Carl W.', salary:5000,increase:false,id:3}
-    ]
+    constructor(props) {
+        super(props);
+        this.state={
+             data : [
+                {name:'John C.', salary:800 ,increase:true,id:1},
+                {name:'Alex M.', salary:3000,increase:false,id:2},
+                {name:'Carl W.', salary:5000,increase:false,id:3}
+            ]
+        }
+    }
 
-    return(
-        <div className='app'>
-            <AppInfo/>
+    deleteItem = (id) =>{
+        this.setState(({data})=>{
 
-            <div className="search-panel">
-                <SearchPanel/>
-                <AppFilter/>
+            return{
+                data: data.filter(item => item.id !== id)
+            }
+
+        })
+    }
+
+    render() {
+        return(
+            <div className='app'>
+                <AppInfo/>
+
+                <div className="search-panel">
+                    <SearchPanel/>
+                    <AppFilter/>
+                </div>
+
+                <EmployeesList
+                    onDelete={this.deleteItem}
+                    data ={this.state.data} />
+                <EmployeesAddForm/>
             </div>
-
-            <EmployeesList data ={data} />
-            <EmployeesAddForm/>
-        </div>
-    )
+        )
+    }
 }
 
 export default App;
