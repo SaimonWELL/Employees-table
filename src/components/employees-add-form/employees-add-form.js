@@ -14,6 +14,13 @@ class EmployeesAddForm extends Component{
         e.preventDefault();
     }
     onValueChange=(e)=>{
+        if(e.target.name==='name'){
+            if(e.target.value.length<3 && typeof e.target.value !=='string' ){
+                alert('The name must be more than 3 characters long')
+                document.querySelector('.btn .btn-outline-light').disabled = true
+            }
+        }
+
         this.setState({
             [e.target.name] : e.target.value
         })
@@ -43,7 +50,17 @@ class EmployeesAddForm extends Component{
                           onChange={this.onValueChange}/>
 
                    <button type="submit"
-                           onClick={()=>{onAdd(name, salary)}}
+                           onClick={()=>{
+                               console.log(!/^[^\d\s]+$/.test(name))
+                               if(name.length < 3 || !/^[^\d\s]+$/.test(name)){
+                                   alert('The name must be more than 3 characters long and consist only of the letters')
+                               }else if (Number(salary)<=0){
+                                   alert('the salary must be greater than zero')
+                               }else {
+                                   onAdd(name,salary)
+                               }
+
+                           }}
                            className="btn btn-outline-light">Add</button>
                </form>
            </div>

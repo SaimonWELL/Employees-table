@@ -13,7 +13,6 @@ const EmployeesList = ({data,onDelete,onToggleProp}) =>{
                 key = {id}
                 {...itemProps}
                 onToggleProp={(e)=>{onToggleProp(id, e.currentTarget.getAttribute('data-toggle'))}}
-
                 onDelete={()=> onDelete(id)}/> // name={item.name} salary={item.salary === {...item}
         )
     })
