@@ -53,7 +53,7 @@ class EmployeesAddForm extends Component{
                            onClick={()=>{
                                console.log(!/^[^\d\s]+$/.test(name))
                                if(name.length < 3 || !/^[^\d\s]+$/.test(name)){
-                                   alert('The name must be more than 3 characters long and consist only of the letters')
+                                   alert('The name must be more than 3 characters long and consist only of the letters ')
                                }else if (Number(salary)<=0){
                                    alert('the salary must be greater than zero')
                                }else {
